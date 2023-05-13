@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, Http404
+from django.http import Http404
 
 posts = [
     {
@@ -47,24 +47,20 @@ posts = [
 
 def index(request):
     template = 'blog/index.html'
-    post = {'post': posts[::-1]}
-    return render(request, template, context=post)
+    context = {'posts': reversed(posts)}
+    return render(request, template, context)
 
 
-def post_detail(request, post_id):
+def post_detail(request, id):
     template = 'blog/detail.html'
-    post_dict = {post['id']: post for post in posts}
-    if post_id in post_dict:
-        context = {'post': post_dict[post_id]}
-    else:
-        raise Http404(f' Такой страницы с номером {post_id} не существует')
-    return render(request, template, context=context)
+    try:
+        context = {'post': posts[id]}
+        return render(request, template, context)
+    except IndexError:
+        raise Http404
 
 
 def category_posts(request, category_slug):
     template = 'blog/category.html'
-    context = {
-        'title': 'Публикации в категории - ',
-        'category_slug': category_slug,
-    }
-    return render(request, template, context=context)
+    context = {'posts': posts, 'category': category_slug}
+    return render(request, template, context)
