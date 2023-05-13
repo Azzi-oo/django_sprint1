@@ -68,4 +68,3 @@ def category_posts(request, category_slug):
         'category_slug': category_slug,
     }
     return render(request, template, context=context)
-
