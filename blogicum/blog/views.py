@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
-# Create your views here.
+
 posts = [
     {
         'id': 0,
@@ -53,12 +53,10 @@ def index(request):
 
 def post_detail(request, post_id):
     template = 'blog/detail.html'
-    post_dict = {}
-    for post in posts:
-        post_dict.update({post['id']: post})
-    try:
-        context = {'post': posts[post_id]}
-    except KeyError:
+    post_dict = {post['id']: post for post in posts}
+    if post_id in post_dict:
+        context = {'post': post_dict[post_id]}
+    else:
         raise Http404(f' Такой страницы с номером {post_id} не существует')
     return render(request, template, context=context)
 
@@ -70,4 +68,4 @@ def category_posts(request, category_slug):
         'category_slug': category_slug,
     }
     return render(request, template, context=context)
-# Create your views here.
+
