@@ -1,5 +1,4 @@
 from pathlib import Path
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,25 +8,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)0_c7jeysjn(%67ofm!o9ol55)*+nuev$_5m*bjfy#38=0d4k#'
+SECRET_KEY = 'django-insecure-*7k=aqoj=m(i_s9c2$8qk37h5kty7xv%2azkg_97a8)p3mp()0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'blog.apps.BlogConfig',
+    'pages.apps.PagesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pages.apps.PagesConfig',
-    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
@@ -92,10 +91,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static_dev',
-]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -115,6 +110,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static_dev',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
