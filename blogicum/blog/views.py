@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, Http404
-# Create your views here.
+
 posts = [
     {
         'id': 0,
@@ -47,26 +46,17 @@ posts = [
 
 def index(request):
     template = 'blog/index.html'
-    post = {'post': posts[::-1]}
-    return render(request, template, context=post)
+    context = {'posts': reversed(posts)}
+    return render(request, template, context)
 
 
-def post_detail(request, post_id):
+def post_detail(request, id):
     template = 'blog/detail.html'
-    post_dict = {}
-    for post in posts:
-        post_dict.update({post['id']: post})
-    try:
-        context = {'post': posts[post_id]}
-    except KeyError:
-        raise Http404(f' Такой страницы с номером {post_id} не существует')
-    return render(request, template, context=context)
+    context = {'post': posts[id]}
+    return render(request, template, context)
 
 
 def category_posts(request, category_slug):
     template = 'blog/category.html'
-    context = {
-        'title': 'Публикации в категории - ',
-        'category_slug': category_slug,
-    }
-    return render(request, template, context=context)
+    context = {'category': category_slug}
+    return render(request, template, context)
