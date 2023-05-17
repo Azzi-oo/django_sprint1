@@ -46,27 +46,23 @@ posts = [
 
 
 def index(request):
-    template = 'blog/index.html'
-    post = {'posts': reversed(posts)}
-    return render(request, template, context=post)
+    template_name = 'blog/index.html'
+    context = {'posts': reversed(posts)}
+    return render(request, template_name, context)
 
 
-def post_detail(request, post_id):
-    template = 'blog/detail.html'
-    post_dict = {}
-    for post in posts:
-        post_dict.update({post['id']: post})
+def post_detail(request, id):
+    template_name = 'blog/detail.html'
     try:
-        context = {'post': posts[post_id]}
-    except KeyError:
-        raise Http404(f' Такой страницы с номером {post_id} не существует')
-    return render(request, template, context=context)
+        posts[id]
+    except IndexError:
+        print('Запись не найдена')
+    else:
+        context = {'post': posts[id]}
+    return render(request, template_name, context)
 
 
 def category_posts(request, category_slug):
-    template = 'blog/category.html'
-    context = {
-        'title': 'Публикации в категории - ',
-        'category_slug': category_slug,
-    }
-    return render(request, template, context=context)
+    template_name = 'blog/category.html'
+    context = {'category_slug': category_slug}
+    return render(request, template_name, context)

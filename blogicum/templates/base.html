@@ -9,13 +9,21 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/fav/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/fav/favicon-16x16.png' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> 
-    <title>{% block title %}{% endblock %}</title>
+    <title>
+      {% block title %}{% endblock %}</title>
+    </title>
   </head>
-  <body>	   
+  <body>	  
+    <header>
     {% include 'includes/header.html' %}
+    </header>
     <main>
-        {% block content %}{% endblock %}
+      <div class="container py-5">
+        {% block main %}{% endblock %}
+      </div>
     </main>
+    <footer class="border-top text-center py-3">
     {% include 'includes/footer.html' %}
+    </footer>
   </body>
 </html>
